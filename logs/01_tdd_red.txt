@@ -1,0 +1,585 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.2.0, pluggy-1.7.0 -- /usr/bin/python3
+hypothesis profile 'default'
+rootdir: /home/fedorklochkov/university/practice3-music-player
+configfile: pytest.ini
+plugins: hypothesis-6.168.0, cov-7.1.0
+collecting ... collected 25 items
+
+tests/unit/test_player.py::test_track_stores_metadata FAILED             [  4%]
+tests/unit/test_player.py::test_track_requires_title[empty] FAILED       [  8%]
+tests/unit/test_player.py::test_track_requires_title[spaces] FAILED      [ 12%]
+tests/unit/test_player.py::test_track_requires_positive_duration[0] FAILED [ 16%]
+tests/unit/test_player.py::test_track_requires_positive_duration[-5] FAILED [ 20%]
+tests/unit/test_player.py::test_new_player_is_stopped_and_empty FAILED   [ 24%]
+tests/unit/test_player.py::test_load_makes_first_track_current ERROR     [ 28%]
+tests/unit/test_player.py::test_load_resets_playback ERROR               [ 32%]
+tests/unit/test_player.py::test_load_copies_playlist ERROR               [ 36%]
+tests/unit/test_player.py::test_play_starts_playback ERROR               [ 40%]
+tests/unit/test_player.py::test_play_with_empty_playlist_raises FAILED   [ 44%]
+tests/unit/test_player.py::test_play_twice_keeps_playing ERROR           [ 48%]
+tests/unit/test_player.py::test_pause_while_playing ERROR                [ 52%]
+tests/unit/test_player.py::test_pause_when_not_playing_raises[stopped] ERROR [ 56%]
+tests/unit/test_player.py::test_pause_when_not_playing_raises[paused] ERROR [ 60%]
+tests/unit/test_player.py::test_play_after_pause_resumes_same_track ERROR [ 64%]
+tests/unit/test_player.py::test_stop_stops_playback ERROR                [ 68%]
+tests/unit/test_player.py::test_next_switches_to_following_track ERROR   [ 72%]
+tests/unit/test_player.py::test_next_keeps_playing ERROR                 [ 76%]
+tests/unit/test_player.py::test_next_while_paused_stops ERROR            [ 80%]
+tests/unit/test_player.py::test_next_on_last_track_stops_playback ERROR  [ 84%]
+tests/unit/test_player.py::test_previous_switches_back ERROR             [ 88%]
+tests/unit/test_player.py::test_previous_on_first_track_stays_on_first ERROR [ 92%]
+tests/unit/test_player.py::test_switching_with_empty_playlist_raises[next] FAILED [ 96%]
+tests/unit/test_player.py::test_switching_with_empty_playlist_raises[previous] FAILED [100%]
+
+==================================== ERRORS ====================================
+____________ ERROR at setup of test_load_makes_first_track_current _____________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad2acdd0>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+_________________ ERROR at setup of test_load_resets_playback __________________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad3d3350>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+_________________ ERROR at setup of test_load_copies_playlist __________________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad3d38a0>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+_________________ ERROR at setup of test_play_starts_playback __________________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad294c50>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+_______________ ERROR at setup of test_play_twice_keeps_playing ________________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad259050>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+__________________ ERROR at setup of test_pause_while_playing __________________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad2b99a0>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+________ ERROR at setup of test_pause_when_not_playing_raises[stopped] _________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad2b8f50>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+_________ ERROR at setup of test_pause_when_not_playing_raises[paused] _________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad241710>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+__________ ERROR at setup of test_play_after_pause_resumes_same_track __________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad240750>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+__________________ ERROR at setup of test_stop_stops_playback __________________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad135980>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+___________ ERROR at setup of test_next_switches_to_following_track ____________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad2b04d0>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+__________________ ERROR at setup of test_next_keeps_playing ___________________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad487d10>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+________________ ERROR at setup of test_next_while_paused_stops ________________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad246620>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+___________ ERROR at setup of test_next_on_last_track_stops_playback ___________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad245440>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+________________ ERROR at setup of test_previous_switches_back _________________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad23c7d0>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+________ ERROR at setup of test_previous_on_first_track_stays_on_first _________
+
+    @pytest.fixture
+    def tracks():
+        return [
+>           Track("Intro", "Band", 180),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            Track("Song", "Band", 200),
+            Track("Outro", "Band", 150),
+        ]
+
+tests/unit/test_player.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad23c9b0>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+=================================== FAILURES ===================================
+__________________________ test_track_stores_metadata __________________________
+
+    def test_track_stores_metadata():
+>       track = Track("Intro", "Band", 180)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_player.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad3c1160>, title = 'Intro'
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+_______________________ test_track_requires_title[empty] _______________________
+
+title = ''
+
+    @pytest.mark.parametrize("title", ["", "   "], ids=["empty", "spaces"])
+    def test_track_requires_title(title):
+        with pytest.raises(InvalidTrackError):
+>           Track(title, "Band", 180)
+
+tests/unit/test_player.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad234910>, title = '', artist = 'Band'
+duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+______________________ test_track_requires_title[spaces] _______________________
+
+title = '   '
+
+    @pytest.mark.parametrize("title", ["", "   "], ids=["empty", "spaces"])
+    def test_track_requires_title(title):
+        with pytest.raises(InvalidTrackError):
+>           Track(title, "Band", 180)
+
+tests/unit/test_player.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad235310>, title = '   '
+artist = 'Band', duration = 180
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+___________________ test_track_requires_positive_duration[0] ___________________
+
+duration = 0
+
+    @pytest.mark.parametrize("duration", [0, -5])
+    def test_track_requires_positive_duration(duration):
+        with pytest.raises(InvalidTrackError):
+>           Track("Intro", "Band", duration)
+
+tests/unit/test_player.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad2c8fc0>, title = 'Intro'
+artist = 'Band', duration = 0
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+__________________ test_track_requires_positive_duration[-5] ___________________
+
+duration = -5
+
+    @pytest.mark.parametrize("duration", [0, -5])
+    def test_track_requires_positive_duration(duration):
+        with pytest.raises(InvalidTrackError):
+>           Track("Intro", "Band", duration)
+
+tests/unit/test_player.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Track object at 0x7f21ad2c8050>, title = 'Intro'
+artist = 'Band', duration = -5
+
+    def __init__(self, title, artist, duration):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:26: NotImplementedError
+_____________________ test_new_player_is_stopped_and_empty _____________________
+
+    def test_new_player_is_stopped_and_empty():
+>       p = Player()
+            ^^^^^^^^
+
+tests/unit/test_player.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Player object at 0x7f21ad3c2120>
+
+    def __init__(self):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:31: NotImplementedError
+_____________________ test_play_with_empty_playlist_raises _____________________
+
+    def test_play_with_empty_playlist_raises():
+        with pytest.raises(EmptyPlaylistError):
+>           Player().play()
+            ^^^^^^^^
+
+tests/unit/test_player.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Player object at 0x7f21ad4b3610>
+
+    def __init__(self):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:31: NotImplementedError
+_______________ test_switching_with_empty_playlist_raises[next] ________________
+
+action = 'next'
+
+    @pytest.mark.parametrize("action", ["next", "previous"])
+    def test_switching_with_empty_playlist_raises(action):
+        with pytest.raises(EmptyPlaylistError):
+>           getattr(Player(), action)()
+                    ^^^^^^^^
+
+tests/unit/test_player.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Player object at 0x7f21ad235950>
+
+    def __init__(self):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:31: NotImplementedError
+_____________ test_switching_with_empty_playlist_raises[previous] ______________
+
+action = 'previous'
+
+    @pytest.mark.parametrize("action", ["next", "previous"])
+    def test_switching_with_empty_playlist_raises(action):
+        with pytest.raises(EmptyPlaylistError):
+>           getattr(Player(), action)()
+                    ^^^^^^^^
+
+tests/unit/test_player.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <player.core.Player object at 0x7f21ad2ca9e0>
+
+    def __init__(self):
+>       raise NotImplementedError
+E       NotImplementedError
+
+player/core.py:31: NotImplementedError
+=========================== short test summary info ============================
+FAILED tests/unit/test_player.py::test_track_stores_metadata - NotImplemented...
+FAILED tests/unit/test_player.py::test_track_requires_title[empty] - NotImple...
+FAILED tests/unit/test_player.py::test_track_requires_title[spaces] - NotImpl...
+FAILED tests/unit/test_player.py::test_track_requires_positive_duration[0] - ...
+FAILED tests/unit/test_player.py::test_track_requires_positive_duration[-5]
+FAILED tests/unit/test_player.py::test_new_player_is_stopped_and_empty - NotI...
+FAILED tests/unit/test_player.py::test_play_with_empty_playlist_raises - NotI...
+FAILED tests/unit/test_player.py::test_switching_with_empty_playlist_raises[next]
+FAILED tests/unit/test_player.py::test_switching_with_empty_playlist_raises[previous]
+ERROR tests/unit/test_player.py::test_load_makes_first_track_current - NotImp...
+ERROR tests/unit/test_player.py::test_load_resets_playback - NotImplementedError
+ERROR tests/unit/test_player.py::test_load_copies_playlist - NotImplementedError
+ERROR tests/unit/test_player.py::test_play_starts_playback - NotImplementedError
+ERROR tests/unit/test_player.py::test_play_twice_keeps_playing - NotImplement...
+ERROR tests/unit/test_player.py::test_pause_while_playing - NotImplementedError
+ERROR tests/unit/test_player.py::test_pause_when_not_playing_raises[stopped]
+ERROR tests/unit/test_player.py::test_pause_when_not_playing_raises[paused]
+ERROR tests/unit/test_player.py::test_play_after_pause_resumes_same_track - N...
+ERROR tests/unit/test_player.py::test_stop_stops_playback - NotImplementedError
+ERROR tests/unit/test_player.py::test_next_switches_to_following_track - NotI...
+ERROR tests/unit/test_player.py::test_next_keeps_playing - NotImplementedError
+ERROR tests/unit/test_player.py::test_next_while_paused_stops - NotImplemente...
+ERROR tests/unit/test_player.py::test_next_on_last_track_stops_playback - Not...
+ERROR tests/unit/test_player.py::test_previous_switches_back - NotImplemented...
+ERROR tests/unit/test_player.py::test_previous_on_first_track_stays_on_first
+========================= 9 failed, 16 errors in 0.15s =========================
