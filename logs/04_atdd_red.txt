@@ -1,0 +1,131 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.2.0, pluggy-1.7.0 -- /usr/bin/python3
+hypothesis profile 'default'
+rootdir: /home/fedorklochkov/university/practice3-music-player
+configfile: pytest.ini
+plugins: hypothesis-6.168.0, cov-7.1.0
+collecting ... collected 8 items
+
+tests/acceptance/test_player_api.py::test_ac1_load_playlist FAILED       [ 12%]
+tests/acceptance/test_player_api.py::test_ac2_play_starts_first_track ERROR [ 25%]
+tests/acceptance/test_player_api.py::test_ac3_pause_and_resume ERROR     [ 37%]
+tests/acceptance/test_player_api.py::test_ac4_switch_tracks ERROR        [ 50%]
+tests/acceptance/test_player_api.py::test_ac5_end_of_playlist_stops ERROR [ 62%]
+tests/acceptance/test_player_api.py::test_ac6_play_with_empty_playlist FAILED [ 75%]
+tests/acceptance/test_player_api.py::test_ac7_pause_when_stopped ERROR   [ 87%]
+tests/acceptance/test_player_api.py::test_ac8_invalid_track_keeps_previous_playlist ERROR [100%]
+
+==================================== ERRORS ====================================
+______________ ERROR at setup of test_ac2_play_starts_first_track ______________
+
+client = <starlette.testclient.TestClient object at 0x7f4cea0a2990>
+
+    @pytest.fixture
+    def loaded(client):
+>       assert client.put("/playlist", json=PLAYLIST).status_code == 200
+E       AssertionError: assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = put('/playlist', json={'tracks': [{'title': 'Intro', 'artist': 'Band', 'duration': 180}, {'title': 'Song', 'artist': 'Band', 'duration': 200}, {'title': 'Outro', 'artist': 'Band', 'duration': 150}]})
+E        +      where put = <starlette.testclient.TestClient object at 0x7f4cea0a2990>.put
+
+tests/acceptance/test_player_api.py:24: AssertionError
+_________________ ERROR at setup of test_ac3_pause_and_resume __________________
+
+client = <starlette.testclient.TestClient object at 0x7f4ce979d090>
+
+    @pytest.fixture
+    def loaded(client):
+>       assert client.put("/playlist", json=PLAYLIST).status_code == 200
+E       AssertionError: assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = put('/playlist', json={'tracks': [{'title': 'Intro', 'artist': 'Band', 'duration': 180}, {'title': 'Song', 'artist': 'Band', 'duration': 200}, {'title': 'Outro', 'artist': 'Band', 'duration': 150}]})
+E        +      where put = <starlette.testclient.TestClient object at 0x7f4ce979d090>.put
+
+tests/acceptance/test_player_api.py:24: AssertionError
+___________________ ERROR at setup of test_ac4_switch_tracks ___________________
+
+client = <starlette.testclient.TestClient object at 0x7f4cea09f490>
+
+    @pytest.fixture
+    def loaded(client):
+>       assert client.put("/playlist", json=PLAYLIST).status_code == 200
+E       AssertionError: assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = put('/playlist', json={'tracks': [{'title': 'Intro', 'artist': 'Band', 'duration': 180}, {'title': 'Song', 'artist': 'Band', 'duration': 200}, {'title': 'Outro', 'artist': 'Band', 'duration': 150}]})
+E        +      where put = <starlette.testclient.TestClient object at 0x7f4cea09f490>.put
+
+tests/acceptance/test_player_api.py:24: AssertionError
+_______________ ERROR at setup of test_ac5_end_of_playlist_stops _______________
+
+client = <starlette.testclient.TestClient object at 0x7f4cea09e2c0>
+
+    @pytest.fixture
+    def loaded(client):
+>       assert client.put("/playlist", json=PLAYLIST).status_code == 200
+E       AssertionError: assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = put('/playlist', json={'tracks': [{'title': 'Intro', 'artist': 'Band', 'duration': 180}, {'title': 'Song', 'artist': 'Band', 'duration': 200}, {'title': 'Outro', 'artist': 'Band', 'duration': 150}]})
+E        +      where put = <starlette.testclient.TestClient object at 0x7f4cea09e2c0>.put
+
+tests/acceptance/test_player_api.py:24: AssertionError
+________________ ERROR at setup of test_ac7_pause_when_stopped _________________
+
+client = <starlette.testclient.TestClient object at 0x7f4cea0e3680>
+
+    @pytest.fixture
+    def loaded(client):
+>       assert client.put("/playlist", json=PLAYLIST).status_code == 200
+E       AssertionError: assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = put('/playlist', json={'tracks': [{'title': 'Intro', 'artist': 'Band', 'duration': 180}, {'title': 'Song', 'artist': 'Band', 'duration': 200}, {'title': 'Outro', 'artist': 'Band', 'duration': 150}]})
+E        +      where put = <starlette.testclient.TestClient object at 0x7f4cea0e3680>.put
+
+tests/acceptance/test_player_api.py:24: AssertionError
+_______ ERROR at setup of test_ac8_invalid_track_keeps_previous_playlist _______
+
+client = <starlette.testclient.TestClient object at 0x7f4ce97d1480>
+
+    @pytest.fixture
+    def loaded(client):
+>       assert client.put("/playlist", json=PLAYLIST).status_code == 200
+E       AssertionError: assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = put('/playlist', json={'tracks': [{'title': 'Intro', 'artist': 'Band', 'duration': 180}, {'title': 'Song', 'artist': 'Band', 'duration': 200}, {'title': 'Outro', 'artist': 'Band', 'duration': 150}]})
+E        +      where put = <starlette.testclient.TestClient object at 0x7f4ce97d1480>.put
+
+tests/acceptance/test_player_api.py:24: AssertionError
+=================================== FAILURES ===================================
+____________________________ test_ac1_load_playlist ____________________________
+
+client = <starlette.testclient.TestClient object at 0x7f4cea0438c0>
+
+    def test_ac1_load_playlist(client):
+        response = client.put("/playlist", json=PLAYLIST)
+    
+>       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/acceptance/test_player_api.py:35: AssertionError
+______________________ test_ac6_play_with_empty_playlist _______________________
+
+client = <starlette.testclient.TestClient object at 0x7f4cea119910>
+
+    def test_ac6_play_with_empty_playlist(client):
+        response = press(client, "play")
+    
+>       assert response.status_code == 400
+E       assert 404 == 400
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/acceptance/test_player_api.py:85: AssertionError
+=========================== short test summary info ============================
+FAILED tests/acceptance/test_player_api.py::test_ac1_load_playlist - assert 4...
+FAILED tests/acceptance/test_player_api.py::test_ac6_play_with_empty_playlist
+ERROR tests/acceptance/test_player_api.py::test_ac2_play_starts_first_track
+ERROR tests/acceptance/test_player_api.py::test_ac3_pause_and_resume - Assert...
+ERROR tests/acceptance/test_player_api.py::test_ac4_switch_tracks - Assertion...
+ERROR tests/acceptance/test_player_api.py::test_ac5_end_of_playlist_stops - A...
+ERROR tests/acceptance/test_player_api.py::test_ac7_pause_when_stopped - Asse...
+ERROR tests/acceptance/test_player_api.py::test_ac8_invalid_track_keeps_previous_playlist
+========================= 2 failed, 6 errors in 0.26s ==========================
