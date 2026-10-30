@@ -1,0 +1,225 @@
+USING RUNNER: behave.runner:Runner
+Функция: Работа плеера без загруженных треков # features/empty_playlist.feature:2
+  Чтобы понимать, почему музыка не играет
+  Как пользователь музыкального плеера
+  Я хочу получать понятное сообщение об ошибке
+  Сценарий: Нажатие «play» при пустом плейлисте    # features/empty_playlist.feature:7
+    Дано плейлист пуст                             # None
+    Когда я нажимаю "play"                         # None
+    Тогда плеер сообщает об ошибке "Плейлист пуст" # None
+    И плеер в состоянии "остановлен"               # None
+
+Функция: Управление воспроизведением музыкального плеера # features/playback.feature:2
+  Чтобы слушать музыку в удобном мне порядке
+  Как пользователь музыкального плеера
+  Я хочу запускать, приостанавливать и переключать треки
+  Функция: Управление воспроизведением музыкального плеера  # features/playback.feature:2
+
+  Сценарий: Запуск воспроизведения кнопкой «play»  # features/playback.feature:14
+    Дано треки загружены в плеер:                  # None
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Когда я нажимаю "play"                         # None
+    Тогда начинается воспроизведение               # None
+    И звучит трек "Intro"                          # None
+
+  Сценарий: Пауза и продолжение воспроизведения  # features/playback.feature:19
+    Дано треки загружены в плеер:                # None
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Song"         # None
+    Когда я нажимаю "pause"                      # None
+    Тогда воспроизведение приостановлено         # None
+    И текущий трек "Song"                        # None
+    Когда я нажимаю "play"                       # None
+    Тогда начинается воспроизведение             # None
+    И звучит трек "Song"                         # None
+
+  Сценарий: Переключение на следующий и предыдущий трек  # features/playback.feature:28
+    Дано треки загружены в плеер:                        # None
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Intro"                # None
+    Когда я нажимаю "next"                               # None
+    Тогда звучит трек "Song"                             # None
+    Когда я нажимаю "previous"                           # None
+    Тогда звучит трек "Intro"                            # None
+
+  Структура сценария: Переключение вперёд с последнего трека -- @1.1   # features/playback.feature:44
+    Дано треки загружены в плеер:                                      # None
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Outro"                              # None
+    И режим повтора выключен                                           # None
+    Когда я нажимаю "next"                                             # None
+    Тогда текущий трек "Outro"                                         # None
+    И плеер в состоянии "остановлен"                                   # None
+
+  Структура сценария: Переключение вперёд с последнего трека -- @1.2   # features/playback.feature:45
+    Дано треки загружены в плеер:                                      # None
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Outro"                              # None
+    И режим повтора включён                                            # None
+    Когда я нажимаю "next"                                             # None
+    Тогда текущий трек "Intro"                                         # None
+    И плеер в состоянии "воспроизведение"                              # None
+
+  Структура сценария: Переключение назад с первого трека -- @1.1   # features/playback.feature:56
+    Дано треки загружены в плеер:                                  # None
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Intro"                          # None
+    И режим повтора выключен                                       # None
+    Когда я нажимаю "previous"                                     # None
+    Тогда текущий трек "Intro"                                     # None
+    И плеер в состоянии "воспроизведение"                          # None
+
+  Структура сценария: Переключение назад с первого трека -- @1.2   # features/playback.feature:57
+    Дано треки загружены в плеер:                                  # None
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Intro"                          # None
+    И режим повтора включён                                        # None
+    Когда я нажимаю "previous"                                     # None
+    Тогда текущий трек "Outro"                                     # None
+    И плеер в состоянии "воспроизведение"                          # None
+
+
+You can implement step definitions for undefined steps with these snippets:
+
+from behave.api.pending_step import StepNotImplementedError
+@given(u'плейлист пуст')
+def step_impl(context):
+    raise StepNotImplementedError(u'Given плейлист пуст')
+
+
+@when(u'я нажимаю "play"')
+def step_impl(context):
+    raise StepNotImplementedError(u'When я нажимаю "play"')
+
+
+@then(u'плеер сообщает об ошибке "Плейлист пуст"')
+def step_impl(context):
+    raise StepNotImplementedError(u'Then плеер сообщает об ошибке "Плейлист пуст"')
+
+
+@then(u'плеер в состоянии "остановлен"')
+def step_impl(context):
+    raise StepNotImplementedError(u'Then плеер в состоянии "остановлен"')
+
+
+@given(u'треки загружены в плеер:')
+def step_impl(context):
+    raise StepNotImplementedError(u'Given треки загружены в плеер:')
+
+
+@then(u'начинается воспроизведение')
+def step_impl(context):
+    raise StepNotImplementedError(u'Then начинается воспроизведение')
+
+
+@then(u'звучит трек "Intro"')
+def step_impl(context):
+    raise StepNotImplementedError(u'Then звучит трек "Intro"')
+
+
+@given(u'плеер воспроизводит трек "Song"')
+def step_impl(context):
+    raise StepNotImplementedError(u'Given плеер воспроизводит трек "Song"')
+
+
+@when(u'я нажимаю "pause"')
+def step_impl(context):
+    raise StepNotImplementedError(u'When я нажимаю "pause"')
+
+
+@then(u'воспроизведение приостановлено')
+def step_impl(context):
+    raise StepNotImplementedError(u'Then воспроизведение приостановлено')
+
+
+@then(u'текущий трек "Song"')
+def step_impl(context):
+    raise StepNotImplementedError(u'Then текущий трек "Song"')
+
+
+@then(u'звучит трек "Song"')
+def step_impl(context):
+    raise StepNotImplementedError(u'Then звучит трек "Song"')
+
+
+@given(u'плеер воспроизводит трек "Intro"')
+def step_impl(context):
+    raise StepNotImplementedError(u'Given плеер воспроизводит трек "Intro"')
+
+
+@when(u'я нажимаю "next"')
+def step_impl(context):
+    raise StepNotImplementedError(u'When я нажимаю "next"')
+
+
+@when(u'я нажимаю "previous"')
+def step_impl(context):
+    raise StepNotImplementedError(u'When я нажимаю "previous"')
+
+
+@given(u'плеер воспроизводит трек "Outro"')
+def step_impl(context):
+    raise StepNotImplementedError(u'Given плеер воспроизводит трек "Outro"')
+
+
+@given(u'режим повтора выключен')
+def step_impl(context):
+    raise StepNotImplementedError(u'Given режим повтора выключен')
+
+
+@then(u'текущий трек "Outro"')
+def step_impl(context):
+    raise StepNotImplementedError(u'Then текущий трек "Outro"')
+
+
+@given(u'режим повтора включён')
+def step_impl(context):
+    raise StepNotImplementedError(u'Given режим повтора включён')
+
+
+@then(u'текущий трек "Intro"')
+def step_impl(context):
+    raise StepNotImplementedError(u'Then текущий трек "Intro"')
+
+
+@then(u'плеер в состоянии "воспроизведение"')
+def step_impl(context):
+    raise StepNotImplementedError(u'Then плеер в состоянии "воспроизведение"')
+
+
+
+Errored scenarios:
+  features/empty_playlist.feature:7  Нажатие «play» при пустом плейлисте
+  features/playback.feature:14  Запуск воспроизведения кнопкой «play»
+  features/playback.feature:19  Пауза и продолжение воспроизведения
+  features/playback.feature:28  Переключение на следующий и предыдущий трек
+  features/playback.feature:44  Переключение вперёд с последнего трека -- @1.1 
+  features/playback.feature:45  Переключение вперёд с последнего трека -- @1.2 
+  features/playback.feature:56  Переключение назад с первого трека -- @1.1 
+  features/playback.feature:57  Переключение назад с первого трека -- @1.2 
+
+0 features passed, 0 failed, 2 error, 0 skipped
+0 scenarios passed, 0 failed, 8 error, 0 skipped
+0 steps passed, 0 failed, 0 skipped, 46 undefined
+Took 0min 0.000s
