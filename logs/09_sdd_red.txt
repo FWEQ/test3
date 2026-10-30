@@ -1,0 +1,508 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.2.0, pluggy-1.7.0 -- /usr/bin/python3
+hypothesis profile 'default'
+rootdir: /home/fedorklochkov/university/practice3-music-player
+configfile: pytest.ini
+plugins: hypothesis-6.168.0, cov-7.1.0
+collecting ... collected 17 items
+
+tests/spec/test_playback_spec.py::test_playback_example[N1: play] FAILED [  5%]
+tests/spec/test_playback_spec.py::test_playback_example[N2: play; tick 60] FAILED [ 11%]
+tests/spec/test_playback_spec.py::test_playback_example[N3: play; tick 60; pause; tick 30] FAILED [ 17%]
+tests/spec/test_playback_spec.py::test_playback_example[N4: play; tick 60; pause; play] FAILED [ 23%]
+tests/spec/test_playback_spec.py::test_playback_example[N5: tick 60] FAILED [ 29%]
+tests/spec/test_playback_spec.py::test_playback_example[N6: play; tick 180] FAILED [ 35%]
+tests/spec/test_playback_spec.py::test_playback_example[N7: play; tick 190] FAILED [ 41%]
+tests/spec/test_playback_spec.py::test_playback_example[N8: play; tick 530] FAILED [ 47%]
+tests/spec/test_playback_spec.py::test_playback_example[N9: play; tick 540] FAILED [ 52%]
+tests/spec/test_playback_spec.py::test_playback_example[N10: play; tick 60; next] FAILED [ 58%]
+tests/spec/test_playback_spec.py::test_playback_example[N11: play; tick 60; previous] FAILED [ 64%]
+tests/spec/test_playback_spec.py::test_playback_example[N12: play; next; tick 3; previous] FAILED [ 70%]
+tests/spec/test_playback_spec.py::test_playback_example[N13: play; next; tick 4; previous] FAILED [ 76%]
+tests/spec/test_playback_spec.py::test_playback_example[N14: play; tick 60; stop] FAILED [ 82%]
+tests/spec/test_playback_spec.py::test_playback_example[N15: pause] FAILED [ 88%]
+tests/spec/test_playback_spec.py::test_playback_example[N16: play; tick -5] FAILED [ 94%]
+tests/spec/test_playback_spec.py::test_playback_example[N17: play] FAILED [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_playback_example[N1: play] ________________________
+
+ex = {'№': '1', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'play', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+            apply(player, action)
+        if ex["Ошибка"] == NONE:
+            apply(player, last)
+        else:
+            with pytest.raises(ERRORS[ex["Ошибка"]]):
+                apply(player, last)
+    
+        title = player.current_track.title if player.current_track else NONE
+        assert title == ex["Трек"]
+        assert player.state.value == ex["Состояние"]
+>       assert player.position == int(ex["Позиция"])
+               ^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'position'
+
+tests/spec/test_playback_spec.py:60: AttributeError
+___________________ test_playback_example[N2: play; tick 60] ___________________
+
+ex = {'№': '2', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'play; tick 60', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+            apply(player, action)
+        if ex["Ошибка"] == NONE:
+>           apply(player, last)
+
+tests/spec/test_playback_spec.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61ccd0>, action = 'tick 60'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+___________ test_playback_example[N3: play; tick 60; pause; tick 30] ___________
+
+ex = {'№': '3', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'play; tick 60; pause; tick 30', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+>           apply(player, action)
+
+tests/spec/test_playback_spec.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61c7d0>, action = 'tick 60'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+____________ test_playback_example[N4: play; tick 60; pause; play] _____________
+
+ex = {'№': '4', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'play; tick 60; pause; play', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+>           apply(player, action)
+
+tests/spec/test_playback_spec.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61c910>, action = 'tick 60'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+______________________ test_playback_example[N5: tick 60] ______________________
+
+ex = {'№': '5', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'tick 60', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+            apply(player, action)
+        if ex["Ошибка"] == NONE:
+>           apply(player, last)
+
+tests/spec/test_playback_spec.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61de50>, action = 'tick 60'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+__________________ test_playback_example[N6: play; tick 180] ___________________
+
+ex = {'№': '6', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'play; tick 180', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+            apply(player, action)
+        if ex["Ошибка"] == NONE:
+>           apply(player, last)
+
+tests/spec/test_playback_spec.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61e350>, action = 'tick 180'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+__________________ test_playback_example[N7: play; tick 190] ___________________
+
+ex = {'№': '7', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'play; tick 190', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+            apply(player, action)
+        if ex["Ошибка"] == NONE:
+>           apply(player, last)
+
+tests/spec/test_playback_spec.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61e5d0>, action = 'tick 190'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+__________________ test_playback_example[N8: play; tick 530] ___________________
+
+ex = {'№': '8', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'play; tick 530', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+            apply(player, action)
+        if ex["Ошибка"] == NONE:
+>           apply(player, last)
+
+tests/spec/test_playback_spec.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61e850>, action = 'tick 530'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+__________________ test_playback_example[N9: play; tick 540] ___________________
+
+ex = {'№': '9', 'Плейлист': 'стандартный', 'Повтор': 'да', 'Действия': 'play; tick 540', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+            apply(player, action)
+        if ex["Ошибка"] == NONE:
+>           apply(player, last)
+
+tests/spec/test_playback_spec.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61ead0>, action = 'tick 540'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+_______________ test_playback_example[N10: play; tick 60; next] ________________
+
+ex = {'№': '10', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'play; tick 60; next', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+>           apply(player, action)
+
+tests/spec/test_playback_spec.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61ed50>, action = 'tick 60'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+_____________ test_playback_example[N11: play; tick 60; previous] ______________
+
+ex = {'№': '11', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'play; tick 60; previous', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+>           apply(player, action)
+
+tests/spec/test_playback_spec.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61ec10>, action = 'tick 60'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+___________ test_playback_example[N12: play; next; tick 3; previous] ___________
+
+ex = {'№': '12', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'play; next; tick 3; previous', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+>           apply(player, action)
+
+tests/spec/test_playback_spec.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61e990>, action = 'tick 3'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+___________ test_playback_example[N13: play; next; tick 4; previous] ___________
+
+ex = {'№': '13', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'play; next; tick 4; previous', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+>           apply(player, action)
+
+tests/spec/test_playback_spec.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61e710>, action = 'tick 4'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+_______________ test_playback_example[N14: play; tick 60; stop] ________________
+
+ex = {'№': '14', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'play; tick 60; stop', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+>           apply(player, action)
+
+tests/spec/test_playback_spec.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61e490>, action = 'tick 60'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+______________________ test_playback_example[N15: pause] _______________________
+
+ex = {'№': '15', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'pause', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+            apply(player, action)
+        if ex["Ошибка"] == NONE:
+            apply(player, last)
+        else:
+            with pytest.raises(ERRORS[ex["Ошибка"]]):
+                apply(player, last)
+    
+        title = player.current_track.title if player.current_track else NONE
+        assert title == ex["Трек"]
+        assert player.state.value == ex["Состояние"]
+>       assert player.position == int(ex["Позиция"])
+               ^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'position'
+
+tests/spec/test_playback_spec.py:60: AttributeError
+__________________ test_playback_example[N16: play; tick -5] ___________________
+
+ex = {'№': '16', 'Плейлист': 'стандартный', 'Повтор': 'нет', 'Действия': 'play; tick -5', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+            apply(player, action)
+        if ex["Ошибка"] == NONE:
+            apply(player, last)
+        else:
+            with pytest.raises(ERRORS[ex["Ошибка"]]):
+>               apply(player, last)
+
+tests/spec/test_playback_spec.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+player = <player.core.Player object at 0x7f7cfa61dd10>, action = 'tick -5'
+
+    def apply(player: Player, action: str) -> None:
+        name, *args = action.split()
+>       getattr(player, name)(*map(int, args))
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'tick'
+
+tests/spec/test_playback_spec.py:39: AttributeError
+_______________________ test_playback_example[N17: play] _______________________
+
+ex = {'№': '17', 'Плейлист': 'пустой', 'Повтор': 'нет', 'Действия': 'play', ...}
+
+    @pytest.mark.parametrize("ex", EXAMPLES, ids=[f"N{ex['№']}: {ex['Действия']}" for ex in EXAMPLES])
+    def test_playback_example(ex):
+        player = Player()
+        player.load(PLAYLISTS[ex["Плейлист"]])
+        player.repeat = ex["Повтор"] == "да"
+        *setup, last = [a.strip() for a in ex["Действия"].split(";")]
+    
+        for action in setup:
+            apply(player, action)
+        if ex["Ошибка"] == NONE:
+            apply(player, last)
+        else:
+            with pytest.raises(ERRORS[ex["Ошибка"]]):
+                apply(player, last)
+    
+        title = player.current_track.title if player.current_track else NONE
+        assert title == ex["Трек"]
+        assert player.state.value == ex["Состояние"]
+>       assert player.position == int(ex["Позиция"])
+               ^^^^^^^^^^^^^^^
+E       AttributeError: 'Player' object has no attribute 'position'
+
+tests/spec/test_playback_spec.py:60: AttributeError
+=========================== short test summary info ============================
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N1: play] - At...
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N2: play; tick 60]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N3: play; tick 60; pause; tick 30]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N4: play; tick 60; pause; play]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N5: tick 60]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N6: play; tick 180]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N7: play; tick 190]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N8: play; tick 530]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N9: play; tick 540]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N10: play; tick 60; next]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N11: play; tick 60; previous]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N12: play; next; tick 3; previous]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N13: play; next; tick 4; previous]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N14: play; tick 60; stop]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N15: pause] - ...
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N16: play; tick -5]
+FAILED tests/spec/test_playback_spec.py::test_playback_example[N17: play] - A...
+============================== 17 failed in 0.11s ==============================
