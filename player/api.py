@@ -42,6 +42,8 @@ def _status(player: Player) -> dict:
     return {
         "state": player.state.value,
         "index": player.index,
+        "position": player.position,
+        "repeat": player.repeat,
         "track": _track_to_dict(player.current_track),
         "playlist": [_track_to_dict(t) for t in player.playlist],
     }

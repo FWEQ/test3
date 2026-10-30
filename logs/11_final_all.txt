@@ -1,0 +1,179 @@
+$ python -m pytest -v --cov=player --cov-report=term-missing
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.2.0, pluggy-1.7.0 -- /usr/bin/python3
+hypothesis profile 'default'
+rootdir: /home/fedorklochkov/university/practice3-music-player
+configfile: pytest.ini
+testpaths: tests
+plugins: hypothesis-6.168.0, cov-7.1.0
+collecting ... collected 50 items
+
+tests/acceptance/test_player_api.py::test_ac1_load_playlist PASSED       [  2%]
+tests/acceptance/test_player_api.py::test_ac2_play_starts_first_track PASSED [  4%]
+tests/acceptance/test_player_api.py::test_ac3_pause_and_resume PASSED    [  6%]
+tests/acceptance/test_player_api.py::test_ac4_switch_tracks PASSED       [  8%]
+tests/acceptance/test_player_api.py::test_ac5_end_of_playlist_stops PASSED [ 10%]
+tests/acceptance/test_player_api.py::test_ac6_play_with_empty_playlist PASSED [ 12%]
+tests/acceptance/test_player_api.py::test_ac7_pause_when_stopped PASSED  [ 14%]
+tests/acceptance/test_player_api.py::test_ac8_invalid_track_keeps_previous_playlist PASSED [ 16%]
+tests/spec/test_playback_spec.py::test_playback_example[N1: play] PASSED [ 18%]
+tests/spec/test_playback_spec.py::test_playback_example[N2: play; tick 60] PASSED [ 20%]
+tests/spec/test_playback_spec.py::test_playback_example[N3: play; tick 60; pause; tick 30] PASSED [ 22%]
+tests/spec/test_playback_spec.py::test_playback_example[N4: play; tick 60; pause; play] PASSED [ 24%]
+tests/spec/test_playback_spec.py::test_playback_example[N5: tick 60] PASSED [ 26%]
+tests/spec/test_playback_spec.py::test_playback_example[N6: play; tick 180] PASSED [ 28%]
+tests/spec/test_playback_spec.py::test_playback_example[N7: play; tick 190] PASSED [ 30%]
+tests/spec/test_playback_spec.py::test_playback_example[N8: play; tick 530] PASSED [ 32%]
+tests/spec/test_playback_spec.py::test_playback_example[N9: play; tick 540] PASSED [ 34%]
+tests/spec/test_playback_spec.py::test_playback_example[N10: play; tick 60; next] PASSED [ 36%]
+tests/spec/test_playback_spec.py::test_playback_example[N11: play; tick 60; previous] PASSED [ 38%]
+tests/spec/test_playback_spec.py::test_playback_example[N12: play; next; tick 3; previous] PASSED [ 40%]
+tests/spec/test_playback_spec.py::test_playback_example[N13: play; next; tick 4; previous] PASSED [ 42%]
+tests/spec/test_playback_spec.py::test_playback_example[N14: play; tick 60; stop] PASSED [ 44%]
+tests/spec/test_playback_spec.py::test_playback_example[N15: pause] PASSED [ 46%]
+tests/spec/test_playback_spec.py::test_playback_example[N16: play; tick -5] PASSED [ 48%]
+tests/spec/test_playback_spec.py::test_playback_example[N17: play] PASSED [ 50%]
+tests/unit/test_player.py::test_track_stores_metadata PASSED             [ 52%]
+tests/unit/test_player.py::test_track_requires_title[empty] PASSED       [ 54%]
+tests/unit/test_player.py::test_track_requires_title[spaces] PASSED      [ 56%]
+tests/unit/test_player.py::test_track_requires_positive_duration[0] PASSED [ 58%]
+tests/unit/test_player.py::test_track_requires_positive_duration[-5] PASSED [ 60%]
+tests/unit/test_player.py::test_new_player_is_stopped_and_empty PASSED   [ 62%]
+tests/unit/test_player.py::test_load_makes_first_track_current PASSED    [ 64%]
+tests/unit/test_player.py::test_load_resets_playback PASSED              [ 66%]
+tests/unit/test_player.py::test_load_copies_playlist PASSED              [ 68%]
+tests/unit/test_player.py::test_play_starts_playback PASSED              [ 70%]
+tests/unit/test_player.py::test_play_with_empty_playlist_raises PASSED   [ 72%]
+tests/unit/test_player.py::test_play_twice_keeps_playing PASSED          [ 74%]
+tests/unit/test_player.py::test_pause_while_playing PASSED               [ 76%]
+tests/unit/test_player.py::test_pause_when_not_playing_raises[stopped] PASSED [ 78%]
+tests/unit/test_player.py::test_pause_when_not_playing_raises[paused] PASSED [ 80%]
+tests/unit/test_player.py::test_play_after_pause_resumes_same_track PASSED [ 82%]
+tests/unit/test_player.py::test_stop_stops_playback PASSED               [ 84%]
+tests/unit/test_player.py::test_next_switches_to_following_track PASSED  [ 86%]
+tests/unit/test_player.py::test_next_keeps_playing PASSED                [ 88%]
+tests/unit/test_player.py::test_next_while_paused_stops PASSED           [ 90%]
+tests/unit/test_player.py::test_next_on_last_track_stops_playback PASSED [ 92%]
+tests/unit/test_player.py::test_previous_switches_back PASSED            [ 94%]
+tests/unit/test_player.py::test_previous_on_first_track_stays_on_first PASSED [ 96%]
+tests/unit/test_player.py::test_switching_with_empty_playlist_raises[next] PASSED [ 98%]
+tests/unit/test_player.py::test_switching_with_empty_playlist_raises[previous] PASSED [100%]
+
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.14.7-final-0 ________________
+
+Name                 Stmts   Miss  Cover   Missing
+--------------------------------------------------
+player/__init__.py       0      0   100%
+player/api.py           44      1    98%   37
+player/core.py          95      1    99%   121
+--------------------------------------------------
+TOTAL                  139      2    99%
+============================== 50 passed in 0.34s ==============================
+
+$ python -m behave
+USING RUNNER: behave.runner:Runner
+Функция: Работа плеера без загруженных треков # features/empty_playlist.feature:2
+  Чтобы понимать, почему музыка не играет
+  Как пользователь музыкального плеера
+  Я хочу получать понятное сообщение об ошибке
+  Сценарий: Нажатие «play» при пустом плейлисте    # features/empty_playlist.feature:7
+    Дано плейлист пуст                             # features/steps/player_steps.py:21
+    Когда я нажимаю "play"                         # features/steps/player_steps.py:42
+    Тогда плеер сообщает об ошибке "Плейлист пуст" # features/steps/player_steps.py:76
+    И плеер в состоянии "остановлен"               # features/steps/player_steps.py:60
+
+Функция: Управление воспроизведением музыкального плеера # features/playback.feature:2
+  Чтобы слушать музыку в удобном мне порядке
+  Как пользователь музыкального плеера
+  Я хочу запускать, приостанавливать и переключать треки
+  Функция: Управление воспроизведением музыкального плеера  # features/playback.feature:2
+
+  Сценарий: Запуск воспроизведения кнопкой «play»  # features/playback.feature:14
+    Дано треки загружены в плеер:                  # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Когда я нажимаю "play"                         # features/steps/player_steps.py:42
+    Тогда начинается воспроизведение               # features/steps/player_steps.py:50
+    И звучит трек "Intro"                          # features/steps/player_steps.py:65
+
+  Сценарий: Пауза и продолжение воспроизведения  # features/playback.feature:19
+    Дано треки загружены в плеер:                # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Song"         # features/steps/player_steps.py:26
+    Когда я нажимаю "pause"                      # features/steps/player_steps.py:42
+    Тогда воспроизведение приостановлено         # features/steps/player_steps.py:55
+    И текущий трек "Song"                        # features/steps/player_steps.py:71
+    Когда я нажимаю "play"                       # features/steps/player_steps.py:42
+    Тогда начинается воспроизведение             # features/steps/player_steps.py:50
+    И звучит трек "Song"                         # features/steps/player_steps.py:65
+
+  Сценарий: Переключение на следующий и предыдущий трек  # features/playback.feature:28
+    Дано треки загружены в плеер:                        # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Intro"                # features/steps/player_steps.py:26
+    Когда я нажимаю "next"                               # features/steps/player_steps.py:42
+    Тогда звучит трек "Song"                             # features/steps/player_steps.py:65
+    Когда я нажимаю "previous"                           # features/steps/player_steps.py:42
+    Тогда звучит трек "Intro"                            # features/steps/player_steps.py:65
+
+  Структура сценария: Переключение вперёд с последнего трека -- @1.1   # features/playback.feature:44
+    Дано треки загружены в плеер:                                      # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Outro"                              # features/steps/player_steps.py:26
+    И режим повтора выключен                                           # features/steps/player_steps.py:37
+    Когда я нажимаю "next"                                             # features/steps/player_steps.py:42
+    Тогда текущий трек "Outro"                                         # features/steps/player_steps.py:71
+    И плеер в состоянии "остановлен"                                   # features/steps/player_steps.py:60
+
+  Структура сценария: Переключение вперёд с последнего трека -- @1.2   # features/playback.feature:45
+    Дано треки загружены в плеер:                                      # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Outro"                              # features/steps/player_steps.py:26
+    И режим повтора включён                                            # features/steps/player_steps.py:37
+    Когда я нажимаю "next"                                             # features/steps/player_steps.py:42
+    Тогда текущий трек "Intro"                                         # features/steps/player_steps.py:71
+    И плеер в состоянии "воспроизведение"                              # features/steps/player_steps.py:60
+
+  Структура сценария: Переключение назад с первого трека -- @1.1   # features/playback.feature:56
+    Дано треки загружены в плеер:                                  # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Intro"                          # features/steps/player_steps.py:26
+    И режим повтора выключен                                       # features/steps/player_steps.py:37
+    Когда я нажимаю "previous"                                     # features/steps/player_steps.py:42
+    Тогда текущий трек "Intro"                                     # features/steps/player_steps.py:71
+    И плеер в состоянии "воспроизведение"                          # features/steps/player_steps.py:60
+
+  Структура сценария: Переключение назад с первого трека -- @1.2   # features/playback.feature:57
+    Дано треки загружены в плеер:                                  # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Intro"                          # features/steps/player_steps.py:26
+    И режим повтора включён                                        # features/steps/player_steps.py:37
+    Когда я нажимаю "previous"                                     # features/steps/player_steps.py:42
+    Тогда текущий трек "Outro"                                     # features/steps/player_steps.py:71
+    И плеер в состоянии "воспроизведение"                          # features/steps/player_steps.py:60
+
+2 features passed, 0 failed, 0 skipped
+8 scenarios passed, 0 failed, 0 skipped
+46 steps passed, 0 failed, 0 skipped
+Took 0min 0.001s
