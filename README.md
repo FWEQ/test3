@@ -31,3 +31,13 @@ python -m behave                            # BDD
 
 uvicorn player.api:app --reload             # API, документация: http://127.0.0.1:8000/docs
 ```
+
+## Отчёт
+
+`report/Отчет_ПР3_Клочков_ФА.docx` (и `.pdf`) собирается скриптом из кода, спецификаций и логов проекта:
+
+```bash
+pip install python-docx pillow
+python report/build_report.py
+soffice --headless --convert-to pdf --outdir report report/Отчет_ПР3_Клочков_ФА.docx
+```
