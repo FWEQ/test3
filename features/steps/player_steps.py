@@ -10,7 +10,7 @@ STATES = {
 REPEAT = {"включён": True, "выключен": False}
 
 
-@given("треки загружены в плеер")
+@given("треки загружены в плеер:")
 def step_load_tracks(context):
     context.player.load(
         Track(row["название"], row["исполнитель"], int(row["длительность"]))
