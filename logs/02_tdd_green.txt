@@ -1,0 +1,35 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.2.0, pluggy-1.7.0 -- /usr/bin/python3
+hypothesis profile 'default'
+rootdir: /home/fedorklochkov/university/practice3-music-player
+configfile: pytest.ini
+plugins: hypothesis-6.168.0, cov-7.1.0
+collecting ... collected 25 items
+
+tests/unit/test_player.py::test_track_stores_metadata PASSED             [  4%]
+tests/unit/test_player.py::test_track_requires_title[empty] PASSED       [  8%]
+tests/unit/test_player.py::test_track_requires_title[spaces] PASSED      [ 12%]
+tests/unit/test_player.py::test_track_requires_positive_duration[0] PASSED [ 16%]
+tests/unit/test_player.py::test_track_requires_positive_duration[-5] PASSED [ 20%]
+tests/unit/test_player.py::test_new_player_is_stopped_and_empty PASSED   [ 24%]
+tests/unit/test_player.py::test_load_makes_first_track_current PASSED    [ 28%]
+tests/unit/test_player.py::test_load_resets_playback PASSED              [ 32%]
+tests/unit/test_player.py::test_load_copies_playlist PASSED              [ 36%]
+tests/unit/test_player.py::test_play_starts_playback PASSED              [ 40%]
+tests/unit/test_player.py::test_play_with_empty_playlist_raises PASSED   [ 44%]
+tests/unit/test_player.py::test_play_twice_keeps_playing PASSED          [ 48%]
+tests/unit/test_player.py::test_pause_while_playing PASSED               [ 52%]
+tests/unit/test_player.py::test_pause_when_not_playing_raises[stopped] PASSED [ 56%]
+tests/unit/test_player.py::test_pause_when_not_playing_raises[paused] PASSED [ 60%]
+tests/unit/test_player.py::test_play_after_pause_resumes_same_track PASSED [ 64%]
+tests/unit/test_player.py::test_stop_stops_playback PASSED               [ 68%]
+tests/unit/test_player.py::test_next_switches_to_following_track PASSED  [ 72%]
+tests/unit/test_player.py::test_next_keeps_playing PASSED                [ 76%]
+tests/unit/test_player.py::test_next_while_paused_stops PASSED           [ 80%]
+tests/unit/test_player.py::test_next_on_last_track_stops_playback PASSED [ 84%]
+tests/unit/test_player.py::test_previous_switches_back PASSED            [ 88%]
+tests/unit/test_player.py::test_previous_on_first_track_stays_on_first PASSED [ 92%]
+tests/unit/test_player.py::test_switching_with_empty_playlist_raises[next] PASSED [ 96%]
+tests/unit/test_player.py::test_switching_with_empty_playlist_raises[previous] PASSED [100%]
+
+============================== 25 passed in 0.09s ==============================
