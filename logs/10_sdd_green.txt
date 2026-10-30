@@ -1,0 +1,27 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.2.0, pluggy-1.7.0 -- /usr/bin/python3
+hypothesis profile 'default'
+rootdir: /home/fedorklochkov/university/practice3-music-player
+configfile: pytest.ini
+plugins: hypothesis-6.168.0, cov-7.1.0
+collecting ... collected 17 items
+
+tests/spec/test_playback_spec.py::test_playback_example[N1: play] PASSED [  5%]
+tests/spec/test_playback_spec.py::test_playback_example[N2: play; tick 60] PASSED [ 11%]
+tests/spec/test_playback_spec.py::test_playback_example[N3: play; tick 60; pause; tick 30] PASSED [ 17%]
+tests/spec/test_playback_spec.py::test_playback_example[N4: play; tick 60; pause; play] PASSED [ 23%]
+tests/spec/test_playback_spec.py::test_playback_example[N5: tick 60] PASSED [ 29%]
+tests/spec/test_playback_spec.py::test_playback_example[N6: play; tick 180] PASSED [ 35%]
+tests/spec/test_playback_spec.py::test_playback_example[N7: play; tick 190] PASSED [ 41%]
+tests/spec/test_playback_spec.py::test_playback_example[N8: play; tick 530] PASSED [ 47%]
+tests/spec/test_playback_spec.py::test_playback_example[N9: play; tick 540] PASSED [ 52%]
+tests/spec/test_playback_spec.py::test_playback_example[N10: play; tick 60; next] PASSED [ 58%]
+tests/spec/test_playback_spec.py::test_playback_example[N11: play; tick 60; previous] PASSED [ 64%]
+tests/spec/test_playback_spec.py::test_playback_example[N12: play; next; tick 3; previous] PASSED [ 70%]
+tests/spec/test_playback_spec.py::test_playback_example[N13: play; next; tick 4; previous] PASSED [ 76%]
+tests/spec/test_playback_spec.py::test_playback_example[N14: play; tick 60; stop] PASSED [ 82%]
+tests/spec/test_playback_spec.py::test_playback_example[N15: pause] PASSED [ 88%]
+tests/spec/test_playback_spec.py::test_playback_example[N16: play; tick -5] PASSED [ 94%]
+tests/spec/test_playback_spec.py::test_playback_example[N17: play] PASSED [100%]
+
+============================== 17 passed in 0.08s ==============================

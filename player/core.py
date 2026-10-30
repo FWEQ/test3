@@ -6,6 +6,9 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Iterable
 
+RESTART_THRESHOLD = 3
+"""Если прошло больше секунд, «previous» перезапускает текущий трек."""
+
 
 class InvalidTrackError(ValueError):
     """Некорректные метаданные трека."""
@@ -43,6 +46,7 @@ class Player:
         self._playlist: list[Track] = []
         self._index = 0
         self._state = PlayerState.STOPPED
+        self._position = 0
         self.repeat = False
 
     @property
@@ -58,6 +62,11 @@ class Player:
         return self._index
 
     @property
+    def position(self) -> int:
+        """Позиция воспроизведения в текущем треке, секунды."""
+        return self._position
+
+    @property
     def current_track(self) -> Track | None:
         return self._playlist[self._index] if self._playlist else None
 
@@ -65,6 +74,7 @@ class Player:
         self._playlist = list(tracks)
         self._index = 0
         self._state = PlayerState.STOPPED
+        self._position = 0
 
     def play(self) -> None:
         self._require_playlist()
@@ -77,6 +87,20 @@ class Player:
 
     def stop(self) -> None:
         self._state = PlayerState.STOPPED
+        self._position = 0
+
+    def tick(self, seconds: int) -> None:
+        """Продвигает воспроизведение на заданное число секунд."""
+        if seconds < 0:
+            raise ValueError("Время не может быть отрицательным")
+        if self._state is not PlayerState.PLAYING:
+            return
+        self._position += seconds
+        while self._state is PlayerState.PLAYING and self._position >= self.current_track.duration:
+            overflow = self._position - self.current_track.duration
+            self.next()
+            if self._state is PlayerState.PLAYING:
+                self._position = overflow
 
     def next(self) -> None:
         self._require_playlist()
@@ -85,11 +109,13 @@ class Player:
         elif self.repeat:
             self._switch_to(0)
         else:
-            self._state = PlayerState.STOPPED
+            self.stop()
 
     def previous(self) -> None:
         self._require_playlist()
-        if self._index > 0:
+        if self._position > RESTART_THRESHOLD:
+            self._switch_to(self._index)
+        elif self._index > 0:
             self._switch_to(self._index - 1)
         elif self.repeat:
             self._switch_to(len(self._playlist) - 1)
@@ -103,5 +129,6 @@ class Player:
     def _switch_to(self, index: int) -> None:
         """Переключение сохраняет воспроизведение, иначе плеер останавливается."""
         self._index = index
+        self._position = 0
         if self._state is not PlayerState.PLAYING:
             self._state = PlayerState.STOPPED
