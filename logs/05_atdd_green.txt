@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.2.0, pluggy-1.7.0 -- /usr/bin/python3
+hypothesis profile 'default'
+rootdir: /home/fedorklochkov/university/practice3-music-player
+configfile: pytest.ini
+plugins: hypothesis-6.168.0, cov-7.1.0
+collecting ... collected 8 items
+
+tests/acceptance/test_player_api.py::test_ac1_load_playlist PASSED       [ 12%]
+tests/acceptance/test_player_api.py::test_ac2_play_starts_first_track PASSED [ 25%]
+tests/acceptance/test_player_api.py::test_ac3_pause_and_resume PASSED    [ 37%]
+tests/acceptance/test_player_api.py::test_ac4_switch_tracks PASSED       [ 50%]
+tests/acceptance/test_player_api.py::test_ac5_end_of_playlist_stops PASSED [ 62%]
+tests/acceptance/test_player_api.py::test_ac6_play_with_empty_playlist PASSED [ 75%]
+tests/acceptance/test_player_api.py::test_ac7_pause_when_stopped PASSED  [ 87%]
+tests/acceptance/test_player_api.py::test_ac8_invalid_track_keeps_previous_playlist PASSED [100%]
+
+============================== 8 passed in 0.31s ===============================
