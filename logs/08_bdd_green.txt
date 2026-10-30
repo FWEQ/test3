@@ -1,0 +1,105 @@
+USING RUNNER: behave.runner:Runner
+Функция: Работа плеера без загруженных треков # features/empty_playlist.feature:2
+  Чтобы понимать, почему музыка не играет
+  Как пользователь музыкального плеера
+  Я хочу получать понятное сообщение об ошибке
+  Сценарий: Нажатие «play» при пустом плейлисте    # features/empty_playlist.feature:7
+    Дано плейлист пуст                             # features/steps/player_steps.py:21
+    Когда я нажимаю "play"                         # features/steps/player_steps.py:42
+    Тогда плеер сообщает об ошибке "Плейлист пуст" # features/steps/player_steps.py:76
+    И плеер в состоянии "остановлен"               # features/steps/player_steps.py:60
+
+Функция: Управление воспроизведением музыкального плеера # features/playback.feature:2
+  Чтобы слушать музыку в удобном мне порядке
+  Как пользователь музыкального плеера
+  Я хочу запускать, приостанавливать и переключать треки
+  Функция: Управление воспроизведением музыкального плеера  # features/playback.feature:2
+
+  Сценарий: Запуск воспроизведения кнопкой «play»  # features/playback.feature:14
+    Дано треки загружены в плеер:                  # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Когда я нажимаю "play"                         # features/steps/player_steps.py:42
+    Тогда начинается воспроизведение               # features/steps/player_steps.py:50
+    И звучит трек "Intro"                          # features/steps/player_steps.py:65
+
+  Сценарий: Пауза и продолжение воспроизведения  # features/playback.feature:19
+    Дано треки загружены в плеер:                # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Song"         # features/steps/player_steps.py:26
+    Когда я нажимаю "pause"                      # features/steps/player_steps.py:42
+    Тогда воспроизведение приостановлено         # features/steps/player_steps.py:55
+    И текущий трек "Song"                        # features/steps/player_steps.py:71
+    Когда я нажимаю "play"                       # features/steps/player_steps.py:42
+    Тогда начинается воспроизведение             # features/steps/player_steps.py:50
+    И звучит трек "Song"                         # features/steps/player_steps.py:65
+
+  Сценарий: Переключение на следующий и предыдущий трек  # features/playback.feature:28
+    Дано треки загружены в плеер:                        # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Intro"                # features/steps/player_steps.py:26
+    Когда я нажимаю "next"                               # features/steps/player_steps.py:42
+    Тогда звучит трек "Song"                             # features/steps/player_steps.py:65
+    Когда я нажимаю "previous"                           # features/steps/player_steps.py:42
+    Тогда звучит трек "Intro"                            # features/steps/player_steps.py:65
+
+  Структура сценария: Переключение вперёд с последнего трека -- @1.1   # features/playback.feature:44
+    Дано треки загружены в плеер:                                      # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Outro"                              # features/steps/player_steps.py:26
+    И режим повтора выключен                                           # features/steps/player_steps.py:37
+    Когда я нажимаю "next"                                             # features/steps/player_steps.py:42
+    Тогда текущий трек "Outro"                                         # features/steps/player_steps.py:71
+    И плеер в состоянии "остановлен"                                   # features/steps/player_steps.py:60
+
+  Структура сценария: Переключение вперёд с последнего трека -- @1.2   # features/playback.feature:45
+    Дано треки загружены в плеер:                                      # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Outro"                              # features/steps/player_steps.py:26
+    И режим повтора включён                                            # features/steps/player_steps.py:37
+    Когда я нажимаю "next"                                             # features/steps/player_steps.py:42
+    Тогда текущий трек "Intro"                                         # features/steps/player_steps.py:71
+    И плеер в состоянии "воспроизведение"                              # features/steps/player_steps.py:60
+
+  Структура сценария: Переключение назад с первого трека -- @1.1   # features/playback.feature:56
+    Дано треки загружены в плеер:                                  # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Intro"                          # features/steps/player_steps.py:26
+    И режим повтора выключен                                       # features/steps/player_steps.py:37
+    Когда я нажимаю "previous"                                     # features/steps/player_steps.py:42
+    Тогда текущий трек "Intro"                                     # features/steps/player_steps.py:71
+    И плеер в состоянии "воспроизведение"                          # features/steps/player_steps.py:60
+
+  Структура сценария: Переключение назад с первого трека -- @1.2   # features/playback.feature:57
+    Дано треки загружены в плеер:                                  # features/steps/player_steps.py:13
+      | название | исполнитель | длительность |
+      | Intro    | Band        | 180          |
+      | Song     | Band        | 200          |
+      | Outro    | Band        | 150          |
+    Дано плеер воспроизводит трек "Intro"                          # features/steps/player_steps.py:26
+    И режим повтора включён                                        # features/steps/player_steps.py:37
+    Когда я нажимаю "previous"                                     # features/steps/player_steps.py:42
+    Тогда текущий трек "Outro"                                     # features/steps/player_steps.py:71
+    И плеер в состоянии "воспроизведение"                          # features/steps/player_steps.py:60
+
+2 features passed, 0 failed, 0 skipped
+8 scenarios passed, 0 failed, 0 skipped
+46 steps passed, 0 failed, 0 skipped
+Took 0min 0.001s

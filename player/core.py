@@ -43,6 +43,7 @@ class Player:
         self._playlist: list[Track] = []
         self._index = 0
         self._state = PlayerState.STOPPED
+        self.repeat = False
 
     @property
     def playlist(self) -> list[Track]:
@@ -79,14 +80,21 @@ class Player:
 
     def next(self) -> None:
         self._require_playlist()
-        if self._index == len(self._playlist) - 1:
-            self._state = PlayerState.STOPPED
-        else:
+        if self._index < len(self._playlist) - 1:
             self._switch_to(self._index + 1)
+        elif self.repeat:
+            self._switch_to(0)
+        else:
+            self._state = PlayerState.STOPPED
 
     def previous(self) -> None:
         self._require_playlist()
-        self._switch_to(max(self._index - 1, 0))
+        if self._index > 0:
+            self._switch_to(self._index - 1)
+        elif self.repeat:
+            self._switch_to(len(self._playlist) - 1)
+        else:
+            self._switch_to(0)
 
     def _require_playlist(self) -> None:
         if not self._playlist:
