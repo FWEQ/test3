@@ -1,18 +1,22 @@
 """Доменная логика музыкального плеера."""
 
+from __future__ import annotations
+
+from dataclasses import dataclass
 from enum import Enum
+from typing import Iterable
 
 
 class InvalidTrackError(ValueError):
-    pass
+    """Некорректные метаданные трека."""
 
 
 class EmptyPlaylistError(Exception):
-    pass
+    """Операция требует непустого плейлиста."""
 
 
 class PlayerStateError(Exception):
-    pass
+    """Операция недопустима в текущем состоянии плеера."""
 
 
 class PlayerState(Enum):
@@ -21,64 +25,75 @@ class PlayerState(Enum):
     PAUSED = "paused"
 
 
+@dataclass(frozen=True)
 class Track:
-    def __init__(self, title, artist, duration):
-        if not title.strip():
-            raise InvalidTrackError("Название трека не может быть пустым")
-        if duration <= 0:
-            raise InvalidTrackError("Длительность трека должна быть положительной")
-        self.title = title
-        self.artist = artist
-        self.duration = duration
+    title: str
+    artist: str
+    duration: int
 
-    def __eq__(self, other):
-        return (self.title, self.artist, self.duration) == (other.title, other.artist, other.duration)
+    def __post_init__(self) -> None:
+        if not self.title.strip():
+            raise InvalidTrackError("Название трека не может быть пустым")
+        if self.duration <= 0:
+            raise InvalidTrackError("Длительность трека должна быть положительной")
 
 
 class Player:
-    def __init__(self):
-        self.playlist = []
-        self.index = 0
-        self.state = PlayerState.STOPPED
+    def __init__(self) -> None:
+        self._playlist: list[Track] = []
+        self._index = 0
+        self._state = PlayerState.STOPPED
 
     @property
-    def current_track(self):
-        if not self.playlist:
-            return None
-        return self.playlist[self.index]
+    def playlist(self) -> list[Track]:
+        return list(self._playlist)
 
-    def load(self, tracks):
-        self.playlist = list(tracks)
-        self.index = 0
-        self.state = PlayerState.STOPPED
+    @property
+    def state(self) -> PlayerState:
+        return self._state
 
-    def play(self):
-        if not self.playlist:
-            raise EmptyPlaylistError("Плейлист пуст")
-        self.state = PlayerState.PLAYING
+    @property
+    def index(self) -> int:
+        return self._index
 
-    def pause(self):
-        if self.state != PlayerState.PLAYING:
+    @property
+    def current_track(self) -> Track | None:
+        return self._playlist[self._index] if self._playlist else None
+
+    def load(self, tracks: Iterable[Track]) -> None:
+        self._playlist = list(tracks)
+        self._index = 0
+        self._state = PlayerState.STOPPED
+
+    def play(self) -> None:
+        self._require_playlist()
+        self._state = PlayerState.PLAYING
+
+    def pause(self) -> None:
+        if self._state is not PlayerState.PLAYING:
             raise PlayerStateError("Пауза возможна только во время воспроизведения")
-        self.state = PlayerState.PAUSED
+        self._state = PlayerState.PAUSED
 
-    def stop(self):
-        self.state = PlayerState.STOPPED
+    def stop(self) -> None:
+        self._state = PlayerState.STOPPED
 
-    def next(self):
-        if not self.playlist:
+    def next(self) -> None:
+        self._require_playlist()
+        if self._index == len(self._playlist) - 1:
+            self._state = PlayerState.STOPPED
+        else:
+            self._switch_to(self._index + 1)
+
+    def previous(self) -> None:
+        self._require_playlist()
+        self._switch_to(max(self._index - 1, 0))
+
+    def _require_playlist(self) -> None:
+        if not self._playlist:
             raise EmptyPlaylistError("Плейлист пуст")
-        if self.index == len(self.playlist) - 1:
-            self.state = PlayerState.STOPPED
-            return
-        self.index += 1
-        if self.state != PlayerState.PLAYING:
-            self.state = PlayerState.STOPPED
 
-    def previous(self):
-        if not self.playlist:
-            raise EmptyPlaylistError("Плейлист пуст")
-        if self.index > 0:
-            self.index -= 1
-        if self.state != PlayerState.PLAYING:
-            self.state = PlayerState.STOPPED
+    def _switch_to(self, index: int) -> None:
+        """Переключение сохраняет воспроизведение, иначе плеер останавливается."""
+        self._index = index
+        if self._state is not PlayerState.PLAYING:
+            self._state = PlayerState.STOPPED
